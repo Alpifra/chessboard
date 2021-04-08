@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chessboard</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <h1 class="main-title">Welcome to the training board queeny 👑</h1>
+
+    <div id="setup" class="setup-container">
+            <div class="setup-q">
+                <label for="size">
+                    How many squares do you want&nbsp;? 
+                </label>
+                <select type="number" name="size" id="setupSquares" autofocus active>
+                    <option value="8">Classic (8)</option>
+                    <option value="16">Crazy (16)</option>
+                </select>
+            </div>
+            <button id="submitForm" type="submit">Let's go !</button>
+    </div>
+
+    <canvas id="chessboard" width="650" height="650">
+    </canvas>
+    
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
