@@ -1,26 +1,24 @@
-:root {
-    --liblue: rgb(165, 190, 235);
-    --darkblue: rgb(20, 30, 48);
-    --red: crimson;
-    --darkred: rgb(161, 15, 44);
-    --yellow: #e6c32c;
-    --radius: 10px;
-}
+$liblue: rgba(165, 190, 235, 1);
+$darkblue: rgba(20, 30, 48, 1);
+$red: crimson;
+$darkred: rgba(161, 15, 44, 1);
+$yellow: #e6c32c;
+$radius: 10px;
 
 body {
     padding: 0;
     font-family: sans-serif;
-    background-color: var(--darkblue);
-    color: var(--liblue);
+    background-color: $darkblue;
+    color: $liblue;
 }
 
 input,
 select {
     display: block;
-    background-color: var(--liblue);
-    color: var(--darkblue);
+    background-color: $liblue;
+    color: $darkblue;
     border: none;
-    border-radius: var(--radius);
+    border-radius: $radius;
     margin: 0 auto;
     padding: 0.5rem 0.5rem;
 }
@@ -31,8 +29,8 @@ button {
     padding: 0.5rem 0.5rem;
     font-size: 1.2rem;
     border: none;
-    border-radius: var(--radius);
-    background-color: var(--red);
+    border-radius: $radius;
+    background-color: $red;
     color: white;
     font-weight: bold;
     cursor: pointer;
@@ -44,11 +42,11 @@ button:focus {
     outline-style: dashed;
     outline-width: 0.2rem;
     outline-offset: 0.4rem;
-    outline-color: var(--yellow);
+    outline-color: $yellow;
 }
 
 button:hover {
-    background-color: var(--darkred);
+    background-color: $darkred;
 }
 
 label {
@@ -58,10 +56,14 @@ label {
 }
 
 canvas {
-    border: 1px solid var(--liblue);
-    display: none;
+    border: 1px solid $liblue;
+    display: block;
     margin: 0.2rem auto;
-    border-radius: var(--radius);
+    border-radius: $radius;
+}
+
+.d-none {
+    display: none;
 }
 
 .main-title {
@@ -71,8 +73,8 @@ canvas {
 .setup-container {
     max-width: 450px;
     margin: 2rem auto;
-    border: 1px solid var(--liblue);
-    border-radius: var(--radius);
+    border: 1px solid $liblue;
+    border-radius: $radius;
     padding: 2rem 1.5rem 1rem;
 }
 

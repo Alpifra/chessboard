@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chessboard</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/main.css">
 </head>
 <body>
 
     <h1 class="main-title">Welcome to the training board queeny 👑</h1>
 
-    <div id="setup" class="setup-container">
+    <form id="setup" class="setup-container">
             <div class="setup-q">
                 <label for="size">
                     How many squares do you want&nbsp;? 
@@ -21,11 +21,11 @@
                 </select>
             </div>
             <button id="submitForm" type="submit">Let's go !</button>
-    </div>
+    </form>
 
-    <canvas id="chessboard" width="650" height="650">
+    <canvas id="chessboard" class="d-none" width="650" height="650">
     </canvas>
     
-    <script src="assets/js/app.js"></script>
+    <script src="assets/app.js"></script>
 </body>
 </html>
