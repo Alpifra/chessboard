@@ -1,0 +1,13 @@
+.board-container {
+
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    margin: 0.2rem auto;
+
+    canvas {
+        border: 1px solid $liblue;
+        display: block;
+        border-radius: $radius;
+    }
+}

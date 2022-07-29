@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "dev": "npx webpack",
-    "watch": "npx webpack -w"
+    "watch": "npx webpack -w",
+    "serve": "cd ./public/ ; lite-server ./src"
   },
   "keywords": [],
   "author": "",

@@ -1,9 +1,6 @@
-$liblue: rgba(165, 190, 235, 1);
-$darkblue: rgba(20, 30, 48, 1);
-$red: crimson;
-$darkred: rgba(161, 15, 44, 1);
-$yellow: #e6c32c;
-$radius: 10px;
+@import './abstract/_root';
+@import './component/_piece';
+@import './component/_board';
 
 body {
     padding: 0;
@@ -55,13 +52,6 @@ label {
     display: block;
 }
 
-canvas {
-    border: 1px solid $liblue;
-    display: block;
-    margin: 0.2rem auto;
-    border-radius: $radius;
-}
-
 .d-none {
     display: none;
 }
@@ -76,11 +66,4 @@ canvas {
     border: 1px solid $liblue;
     border-radius: $radius;
     padding: 2rem 1.5rem 1rem;
-}
-
-.pawn {
-    width: 20px;
-    height: 20px;
-    border-radius: 50px;
-    background-color: red;
 }
