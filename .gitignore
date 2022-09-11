@@ -1,4 +1,4 @@
 .vscode
-public/*.js
-public/*.css
-public/*.map
+public/*/*.js
+public/*/*.css
+public/*/*.map

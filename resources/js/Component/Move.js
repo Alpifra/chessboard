@@ -7,13 +7,37 @@ export class Move
     }
 
     init(ev) {
-        if (this.piece.name === 'pawn') {
-            this.showMoves(this.piece, [this.piece.square * 1, this.piece.square * 2])
+        let squares = []
+        let piece = this.piece
+
+        squares.push(piece.square)
+
+        if (piece.active) {
+            this.showMoves(this.piece, [])
+            piece.active = false
+            return
         }
+        
+        piece.active = !piece.active
+
+        if (piece.name === 'pawn') {
+            if (piece.color === 'white') {
+                squares.push( piece.square - piece.board.yNumber )
+                if (Object.keys(piece.moves).length === 0) {
+                    squares.push( piece.square - (2 * piece.board.yNumber) )
+                }
+            } else {
+                squares.push( piece.square + piece.board.yNumber )
+                if (Object.keys(piece.moves).length === 0) {
+                    squares.push( piece.square + (2 * piece.board.yNumber) )
+                }
+            }
+        }
+        this.showMoves(this.piece, squares)
     }
 
     showMoves(selectedPiece, allowedMoves) {
-        selectedPiece.board.highLightSquare(this.piece.square)
+        selectedPiece.board.highLightSquare(allowedMoves)
     }
 
 }

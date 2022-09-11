@@ -3,13 +3,15 @@ import { Move } from "./Move"
 
 export class Piece extends Board {
 
-    constructor(name, board, square, color = 'white', dead = false) {
+    constructor(name, board, square, color = 'white', active = false, dead = false, moves = {}) {
         super(board.chessBoard, board.xNumber, board.yNumber)
         this.name = name
         this.board = board
         this.square = square
         this.color = color
+        this.active = active
         this.dead = dead
+        this.moves = moves
     }
 
     toElement()  {

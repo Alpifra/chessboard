@@ -107,3 +107,7 @@ setup.addEventListener('submit', (ev) => {
     }
 
 })
+
+// temp for dev
+document.getElementById('submitForm').click()
+//

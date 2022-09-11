@@ -17,9 +17,6 @@ export class Board
         let y = 0,
             caseNumb = this.yNumber
 
-        // set that the board appear under the pieces
-        this.ctx.globalCompositeOperation = 'destination-over'
-
         for (let i = 1; i <= this.yNumber; i++) {
             let x = 0
 
@@ -52,9 +49,29 @@ export class Board
         }
     }
 
-    highLightSquare(square) {
-        const squareRow = square / 
-        const squareCol = 
+    findSquarePosition(square) {
+        let squareCol = square % this.xNumber
+        let squareRow = Math.ceil(square / this.yNumber)
+        squareCol === 0 ? squareCol = 8 : null
+
+        return {row: squareRow, column: squareCol}
+    }
+
+    highLightSquare(squares) {
+        //clear the board
+        this.createSquares()
+        console.log(squares);
+        
+        squares.map( (square) => {
+
+            let positions = this.findSquarePosition(square)
+            let x = (positions.column - 1) * this.heightStep
+            let y = (positions.row - 1) * this.widthStep
+            
+            
+            this.ctx.fillStyle = '#3d922bbf'
+            this.ctx.fillRect(x, y, this.widthStep, this.heightStep)
+        })
     }
     
 }
