@@ -57,11 +57,10 @@ export class Board
         return {row: squareRow, column: squareCol}
     }
 
-    highLightSquare(squares) {
+    showMoves(squares) {
         //clear the board
         this.createSquares()
-        console.log(squares);
-        
+
         squares.map( (square) => {
 
             let positions = this.findSquarePosition(square)

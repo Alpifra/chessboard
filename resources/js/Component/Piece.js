@@ -1,5 +1,5 @@
 import { Board } from "./Board"
-import { Move } from "./Move"
+import { Move } from "../Rules/Move"
 
 export class Piece extends Board {
 
