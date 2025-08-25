@@ -2,3 +2,4 @@
 public/*/*.js
 public/*/*.css
 public/*/*.map
+node_modules/*

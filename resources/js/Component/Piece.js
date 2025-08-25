@@ -43,6 +43,10 @@ export class Piece extends Board {
         element.addEventListener('click', () => Moves.init())
     }
 
+    getPieceFromSquare(square) {
+        return this.board.pieces.find(piece => piece.square === square)
+    }
+
     render(canvas) {
         const element = this.toElement()
         this.setMoves(element, canvas)

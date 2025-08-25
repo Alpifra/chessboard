@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "npx webpack",
-    "watch": "npx webpack -w",
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider npx webpack",
+    "watch": "NODE_OPTIONS=--openssl-legacy-provider npx webpack -w",
     "serve": "cd ./public/ ; lite-server ./src"
   },
   "keywords": [],
