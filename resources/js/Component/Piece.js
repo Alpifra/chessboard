@@ -6,6 +6,7 @@ export class Piece extends Board {
     constructor(name, board, square, color = 'white', active = false, dead = false, moves = {}) {
         super(board.chessBoard, board.xNumber, board.yNumber)
         this.name = name
+        this.element = null
         this.board = board
         this.square = square
         this.color = color
@@ -16,19 +17,21 @@ export class Piece extends Board {
 
     toElement()  {
         let element = document.createElement('img')
-        let position = this.calculatePosition()
+        let position = this.calculatePosition(this.square)
 
         element.src = '/assets/img/piece/' + this.name + '_' + this.color[0] + '.svg'
         element.classList.add('piece', 'piece-' + this.square, this.name, this.color)
         element.style.top = position.y + 'px'
         element.style.left = position.x + 'px'
 
+        this.element = element
+
         return element
     }
 
-    calculatePosition() {
-        let row = Math.ceil(this.square / this.board.yNumber)
-        let col = this.square - ( (row - 1) * this.board.xNumber)
+    calculatePosition(square) {
+        let row = Math.ceil(square / this.board.yNumber)
+        let col = square - ( (row - 1) * this.board.xNumber)
         let square_width = this.board.chessBoard.width / this.board.xNumber
         let position = {
             x: col * square_width - (square_width / 2),
@@ -41,6 +44,15 @@ export class Piece extends Board {
     setMoves(element, canvas) {
         const Moves = new Move(this, canvas)
         element.addEventListener('click', () => Moves.init())
+    }
+
+    move(square) {
+        let position = this.calculatePosition(square)
+
+        this.element.classList.replace('piece-' + this.square, 'piece-' + square)
+        this.element.style.top = position.y + 'px'
+        this.element.style.left = position.x + 'px'
+        this.square = square
     }
 
     getPieceFromSquare(square) {

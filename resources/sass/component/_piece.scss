@@ -3,4 +3,9 @@
     transform: translate(-50%, -50%);
     width: 4rem;
     cursor: grab;
+    transition:
+        left .5s,
+        right .5s,
+        top .5s,
+        bottom .5s,
 }

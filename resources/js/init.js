@@ -1,5 +1,6 @@
 import { Board } from './Component/Board';
 import { Piece } from './Component/Piece'
+import { Game } from './Rules/Game'
 
 const setup = document.getElementById('setup')
 
@@ -85,6 +86,8 @@ setup.addEventListener('submit', (ev) => {
         }
 
     }
+
+    new Game(board).init()
 
 })
 
