@@ -1,14 +1,17 @@
-export class Move
+import { Game } from "./Game"
+
+export class Move extends Game
 {
 
     constructor(piece, canvas) {
+        super(piece.board)
         this.piece = piece
         this.canvas = canvas
     }
 
     init(ev) {
         let piece = this.piece
-        let squares = [piece.square]
+        const squares = [piece.square]
 
         if (piece.active) {
             piece.board.showMoves([])
@@ -46,7 +49,7 @@ export class Move
     }
 
     kingMoves(piece) {
-        let squares = [],
+        const squares = [],
             squareTopLeft = this.findRelativeSquarePosition(piece, +1, +1),
             squareTopRight = this.findRelativeSquarePosition(piece, +1, -1),
             squareBotLeft = this.findRelativeSquarePosition(piece, -1, +1),
@@ -56,14 +59,54 @@ export class Move
             squareTop = this.findRelativeSquarePosition(piece, 0, +1),
             squareBot = this.findRelativeSquarePosition(piece, 0, -1)
 
-        if (!piece.getPieceFromSquare(squareTopLeft)) squares.push(squareTopLeft)
-        if (!piece.getPieceFromSquare(squareTopRight)) squares.push(squareTopRight)
-        if (!piece.getPieceFromSquare(squareBotLeft)) squares.push(squareBotLeft)
-        if (!piece.getPieceFromSquare(squareBotRight)) squares.push(squareBotRight)
-        if (!piece.getPieceFromSquare(squareLeft)) squares.push(squareLeft)
-        if (!piece.getPieceFromSquare(squareRight)) squares.push(squareRight)
-        if (!piece.getPieceFromSquare(squareTop)) squares.push(squareTop)
-        if (!piece.getPieceFromSquare(squareBot)) squares.push(squareBot)
+        if (
+            !piece.getPieceFromSquare(squareTopLeft) ||
+            piece.getPieceFromSquare(squareTopLeft).color !== piece.color
+        ) {
+            squares.push(squareTopLeft)
+        }
+        if (
+            !piece.getPieceFromSquare(squareTopRight) ||
+            piece.getPieceFromSquare(squareTopRight).color !== piece.color
+        ) {
+            squares.push(squareTopRight)
+        }
+        if (
+            !piece.getPieceFromSquare(squareBotLeft) ||
+            piece.getPieceFromSquare(squareBotLeft).color !== piece.color
+        ) {
+            squares.push(squareBotLeft)
+        }
+        if (
+            !piece.getPieceFromSquare(squareBotRight) ||
+            piece.getPieceFromSquare(squareBotRight).color !== piece.color
+        ) {
+            squares.push(squareBotRight)
+        }
+        if (
+            !piece.getPieceFromSquare(squareLeft) ||
+            piece.getPieceFromSquare(squareLeft).color !== piece.color
+        ) {
+            squares.push(squareLeft)
+        }
+        if (
+            !piece.getPieceFromSquare(squareRight) ||
+            piece.getPieceFromSquare(squareRight).color !== piece.color
+        ) {
+            squares.push(squareRight)
+        }
+        if (
+            !piece.getPieceFromSquare(squareTop) ||
+            piece.getPieceFromSquare(squareTop).color !== piece.color
+        ) {
+            squares.push(squareTop)
+        }
+        if (
+            !piece.getPieceFromSquare(squareBot) ||
+            piece.getPieceFromSquare(squareBot).color !== piece.color
+        ) {
+            squares.push(squareBot)
+        }
 
         return squares
     }
@@ -85,40 +128,48 @@ export class Move
                 squareBack = this.findRelativeSquarePosition(piece, 0, -(index)),
                 squareFwd = this.findRelativeSquarePosition(piece, 0, +(index))
 
-            if (
-                !piece.getPieceFromSquare(squareLeft) &&
-                continueLeft
-            ) {
-                squares.push(squareLeft)
-            } else {
-                continueLeft = false
+            if (continueLeft) {
+                if (!piece.getPieceFromSquare(squareLeft)) {
+                    squares.push(squareLeft)
+                } else if (piece.getPieceFromSquare(squareLeft).color === piece.color) {
+                    continueLeft = false
+                } else {
+                    squares.push(squareLeft)
+                    continueLeft = false
+                }
             }
 
-            if (
-                !piece.getPieceFromSquare(squareRight) &&
-                continueRight
-            ) {
-                squares.push(squareRight)
-            } else {
-                continueRight = false
+            if (continueRight) {
+                if (!piece.getPieceFromSquare(squareRight)) {
+                    squares.push(squareRight)
+                } else if (piece.getPieceFromSquare(squareRight).color === piece.color) {
+                    continueRight = false
+                } else {
+                    squares.push(squareRight)
+                    continueRight = false
+                }
             }
 
-            if (
-                !piece.getPieceFromSquare(squareBack) &&
-                continueBack
-            ) {
-                squares.push(squareBack)
-            } else {
-                continueBack = false
+            if (continueBack) {
+                if (!piece.getPieceFromSquare(squareBack)) {
+                    squares.push(squareBack)
+                } else if (piece.getPieceFromSquare(squareBack).color === piece.color) {
+                    continueBack = false
+                } else {
+                    squares.push(squareBack)
+                    continueBack = false
+                }
             }
 
-            if (
-                !piece.getPieceFromSquare(squareFwd) &&
-                continueFwd
-            ) {
-                squares.push(squareFwd)
-            } else {
-                continueFwd = false
+            if (continueFwd) {
+                if (!piece.getPieceFromSquare(squareFwd)) {
+                    squares.push(squareFwd)
+                } else if (piece.getPieceFromSquare(squareFwd).color === piece.color) {
+                    continueFwd = false
+                } else {
+                    squares.push(squareFwd)
+                    continueFwd = false
+                }
             }
         }
 
@@ -133,45 +184,53 @@ export class Move
             continueBotRight = true
 
         for (let index = 1; index < 8; index++) {
-            let squareTopLeft = this.findRelativeSquarePosition(piece, -(index), -(index)),
+            const squareTopLeft = this.findRelativeSquarePosition(piece, -(index), -(index)),
                 squareTopRight = this.findRelativeSquarePosition(piece, +(index), +(index)),
                 squareBotLeft = this.findRelativeSquarePosition(piece, -(index), +(index)),
                 squareBotRight = this.findRelativeSquarePosition(piece, +(index), -(index))
 
-            if (
-                !piece.getPieceFromSquare(squareTopLeft) &&
-                continueTopLeft
-            ) {
-                squares.push(squareTopLeft)
-            } else {
-                continueTopLeft = false
+            if (continueTopLeft) {
+                if (!piece.getPieceFromSquare(squareTopLeft)) {
+                    squares.push(squareTopLeft)
+                } else if (piece.getPieceFromSquare(squareTopLeft).color === piece.color) {
+                    continueTopLeft = false
+                } else {
+                    squares.push(squareTopLeft)
+                    continueTopLeft = false
+                }
             }
 
-            if (
-                !piece.getPieceFromSquare(squareTopRight) &&
-                continueTopRight
-            ) {
-                squares.push(squareTopRight)
-            } else {
-                continueTopRight = false
+            if (continueTopRight) {
+                if (!piece.getPieceFromSquare(squareTopRight)) {
+                    squares.push(squareTopRight)
+                } else if (piece.getPieceFromSquare(squareTopRight).color === piece.color) {
+                    continueTopRight = false
+                } else {
+                    squares.push(squareTopRight)
+                    continueTopRight = false
+                }
             }
 
-            if (
-                !piece.getPieceFromSquare(squareBotLeft) &&
-                continueBotLeft
-            ) {
-                squares.push(squareBotLeft)
-            } else {
-                continueBotLeft = false
+            if (continueBotLeft) {
+                if (!piece.getPieceFromSquare(squareBotLeft)) {
+                    squares.push(squareBotLeft)
+                } else if (piece.getPieceFromSquare(squareBotLeft).color === piece.color) {
+                    continueBotLeft = false
+                } else {
+                    squares.push(squareBotLeft)
+                    continueBotLeft = false
+                }
             }
 
-            if (
-                !piece.getPieceFromSquare(squareBotRight) &&
-                continueBotRight
-            ) {
-                squares.push(squareBotRight)
-            } else {
-                continueBotRight = false
+            if (continueBotRight) {
+                if (!piece.getPieceFromSquare(squareBotRight)) {
+                    squares.push(squareBotRight)
+                } else if (piece.getPieceFromSquare(squareBotRight).color === piece.color) {
+                    continueBotRight = false
+                } else {
+                    squares.push(squareBotRight)
+                    continueBotRight = false
+                }
             }
         }
 
@@ -179,37 +238,51 @@ export class Move
     }
 
     knightMoves(piece) {
-        let squares = []
-        squares.push( this.findRelativeSquarePosition(piece, -2, +1) )
-        squares.push( this.findRelativeSquarePosition(piece, -2, -1) )
-        squares.push( this.findRelativeSquarePosition(piece, +2, +1) )
-        squares.push( this.findRelativeSquarePosition(piece, +2, -1) )
-        squares.push( this.findRelativeSquarePosition(piece, -1, +2) )
-        squares.push( this.findRelativeSquarePosition(piece, -1, -2) )
-        squares.push( this.findRelativeSquarePosition(piece, +1, +2) )
-        squares.push( this.findRelativeSquarePosition(piece, +1, -2) )
+        const squares = [],
+            square1 = this.findRelativeSquarePosition(piece, -2, +1),
+            square2 = this.findRelativeSquarePosition(piece, -2, -1),
+            square3 = this.findRelativeSquarePosition(piece, +2, +1),
+            square4 = this.findRelativeSquarePosition(piece, +2, -1),
+            square5 = this.findRelativeSquarePosition(piece, -1, +2),
+            square6 = this.findRelativeSquarePosition(piece, -1, -2),
+            square7 = this.findRelativeSquarePosition(piece, +1, +2),
+            square8 = this.findRelativeSquarePosition(piece, +1, -2)
+
+        if (piece.getPieceFromSquare(square1)?.color !== piece.color) squares.push(square1)
+        if (piece.getPieceFromSquare(square2)?.color !== piece.color) squares.push(square2)
+        if (piece.getPieceFromSquare(square3)?.color !== piece.color) squares.push(square3)
+        if (piece.getPieceFromSquare(square4)?.color !== piece.color) squares.push(square4)
+        if (piece.getPieceFromSquare(square5)?.color !== piece.color) squares.push(square5)
+        if (piece.getPieceFromSquare(square6)?.color !== piece.color) squares.push(square6)
+        if (piece.getPieceFromSquare(square7)?.color !== piece.color) squares.push(square7)
+        if (piece.getPieceFromSquare(square8)?.color !== piece.color) squares.push(square8)
 
         return squares
     }
 
     pawnMoves(piece) {
-        let squares = []
+        const squares = []
 
         if (piece.color === 'white') {
-            let squareOne = this.findRelativeSquarePosition(piece, 0, -1),
-                squareTwo = this.findRelativeSquarePosition(piece, 0, -2)
+            const squareOne = this.findRelativeSquarePosition(piece, 0, -1),
+                squareTwo = this.findRelativeSquarePosition(piece, 0, -2),
+                squareTopRight = this.findRelativeSquarePosition(piece, -1, -1),
+                squareTopLeft = this.findRelativeSquarePosition(piece, -1, -1)
 
             if (!piece.getPieceFromSquare(squareOne)) {
-
                 squares.push(squareOne)
 
-                if (Object.keys(piece.moves).length === 0) {
-                    squares.push(squareTwo)
-                }
+                if (Object.keys(piece.moves).length === 0) squares.push(squareTwo)
             }
+
+            if (piece.getPieceFromSquare(squareTopRight)?.color === 'black') squares.push(squareTopRight)
+            if (piece.getPieceFromSquare(squareTopLeft)?.color === 'black') squares.push(squareTopLeft)
+
         } else {
-            let squareOne = this.findRelativeSquarePosition(piece, 0, +1),
-                squareTwo = this.findRelativeSquarePosition(piece, 0, +2)
+            const squareOne = this.findRelativeSquarePosition(piece, 0, +1),
+                squareTwo = this.findRelativeSquarePosition(piece, 0, +2),
+                squareTopRight = this.findRelativeSquarePosition(piece, +1, +1),
+                squareTopLeft = this.findRelativeSquarePosition(piece, -1, +1)
 
             if (!piece.getPieceFromSquare(squareOne)) {
 
@@ -219,6 +292,9 @@ export class Move
                     squares.push(squareTwo)
                 }
             }
+
+            if (piece.getPieceFromSquare(squareTopRight)?.color === 'white') squares.push(squareTopRight)
+            if (piece.getPieceFromSquare(squareTopLeft)?.color === 'white') squares.push(squareTopLeft)
         }
 
         return squares

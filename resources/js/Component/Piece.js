@@ -1,7 +1,8 @@
 import { Board } from "./Board"
 import { Move } from "../Rules/Move"
 
-export class Piece extends Board {
+export class Piece extends Board
+{
 
     constructor(name, board, square, color = 'white') {
         super(board.chessBoard, board.xNumber, board.yNumber)
@@ -43,8 +44,8 @@ export class Piece extends Board {
     }
 
     setMoves(element, canvas) {
-        const Moves = new Move(this, canvas)
-        element.addEventListener('click', () => Moves.init())
+        const move = new Move(this, canvas)
+        element.addEventListener('click', () => move.init())
     }
 
     move(square) {
