@@ -41,7 +41,7 @@ export class Move
                 break
         }
 
-        piece.moves = squares
+        piece.availableMoves = squares
         piece.board.showMoves(squares)
     }
 

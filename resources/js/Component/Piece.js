@@ -3,16 +3,17 @@ import { Move } from "../Rules/Move"
 
 export class Piece extends Board {
 
-    constructor(name, board, square, color = 'white', active = false, dead = false, moves = {}) {
+    constructor(name, board, square, color = 'white') {
         super(board.chessBoard, board.xNumber, board.yNumber)
         this.name = name
         this.element = null
         this.board = board
         this.square = square
         this.color = color
-        this.active = active
-        this.dead = dead
-        this.moves = moves
+        this.active = false
+        this.dead = false
+        this.availableMoves = []
+        this.moves = []
     }
 
     toElement()  {
@@ -53,6 +54,7 @@ export class Piece extends Board {
         this.element.style.top = position.y + 'px'
         this.element.style.left = position.x + 'px'
         this.square = square
+        this.moves.push(square)
     }
 
     getPieceFromSquare(square) {

@@ -14,14 +14,16 @@ export class Game
                     square = col + 1 + (this.board.xNumber * row),
                     selectedPiece = this.board.pieces.find((piece) => piece.active)
 
-                if (
-                    !selectedPiece ||
-                    selectedPiece.color !== this.toMove
-                ) {
+                if (!selectedPiece) return
+
+                if (selectedPiece.color !== this.toMove) {
+                    this.board.createSquares()
+                    selectedPiece.active = false
+
                     return
                 }
 
-                if (selectedPiece.moves.includes(square)) {
+                if (selectedPiece.availableMoves.includes(square)) {
                     selectedPiece.move(square)
 
                     if (this.toMove === 'white') {
