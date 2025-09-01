@@ -1,0 +1,44 @@
+{
+    "black": {
+        "pieces": [
+            { "name": "rook", "square": 1 },
+            { "name": "rook", "square": 8 },
+            { "name": "knight", "square": 2 },
+            { "name": "knight", "square": 7 },
+            { "name": "bishop", "square": 3 },
+            { "name": "bishop", "square": 6 },
+            { "name": "queen", "square": 4 },
+            { "name": "king", "square": 5 },
+            { "name": "pawn", "square": 9 },
+            { "name": "pawn", "square": 10 },
+            { "name": "pawn", "square": 11 },
+            { "name": "pawn", "square": 12 },
+            { "name": "pawn", "square": 13 },
+            { "name": "pawn", "square": 14 },
+            { "name": "pawn", "square": 15 },
+            { "name": "pawn", "square": 16 }
+        ],
+        "deadPieces": []
+    },
+    "white": {
+        "pieces": [
+            { "name": "rook", "square": 57 },
+            { "name": "rook", "square": 64 },
+            { "name": "knight", "square": 58 },
+            { "name": "knight", "square": 63 },
+            { "name": "bishop", "square": 62 },
+            { "name": "bishop", "square": 59 },
+            { "name": "queen", "square": 60 },
+            { "name": "king", "square": 61 },
+            { "name": "pawn", "square": 49 },
+            { "name": "pawn", "square": 50 },
+            { "name": "pawn", "square": 51 },
+            { "name": "pawn", "square": 52 },
+            { "name": "pawn", "square": 53 },
+            { "name": "pawn", "square": 55 },
+            { "name": "pawn", "square": 56 },
+            { "name": "pawn", "square": 54 }
+        ],
+        "deadPieces": []
+    }
+}
