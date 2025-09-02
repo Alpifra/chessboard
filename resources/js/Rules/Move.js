@@ -13,8 +13,8 @@ export class Move extends Game
         let piece = this.piece
         const squares = [piece.square]
 
-        if (piece.active) {
-            piece.board.showMoves([])
+        if (piece.active || Game.toMove !== piece.color) {
+            piece.board.showMoves(piece, [])
             piece.active = false
             return
         }
@@ -45,7 +45,7 @@ export class Move extends Game
         }
 
         piece.availableMoves = squares
-        piece.board.showMoves(squares)
+        piece.board.showMoves(piece, squares)
     }
 
     kingMoves(piece) {
@@ -60,50 +60,50 @@ export class Move extends Game
             squareBot = this.findRelativeSquarePosition(piece, 0, -1)
 
         if (
-            !piece.getPieceFromSquare(squareTopLeft) ||
-            piece.getPieceFromSquare(squareTopLeft).color !== piece.color
+            !piece.board.getPieceFromSquare(squareTopLeft) ||
+            piece.board.getPieceFromSquare(squareTopLeft).color !== piece.color
         ) {
             squares.push(squareTopLeft)
         }
         if (
-            !piece.getPieceFromSquare(squareTopRight) ||
-            piece.getPieceFromSquare(squareTopRight).color !== piece.color
+            !piece.board.getPieceFromSquare(squareTopRight) ||
+            piece.board.getPieceFromSquare(squareTopRight).color !== piece.color
         ) {
             squares.push(squareTopRight)
         }
         if (
-            !piece.getPieceFromSquare(squareBotLeft) ||
-            piece.getPieceFromSquare(squareBotLeft).color !== piece.color
+            !piece.board.getPieceFromSquare(squareBotLeft) ||
+            piece.board.getPieceFromSquare(squareBotLeft).color !== piece.color
         ) {
             squares.push(squareBotLeft)
         }
         if (
-            !piece.getPieceFromSquare(squareBotRight) ||
-            piece.getPieceFromSquare(squareBotRight).color !== piece.color
+            !piece.board.getPieceFromSquare(squareBotRight) ||
+            piece.board.getPieceFromSquare(squareBotRight).color !== piece.color
         ) {
             squares.push(squareBotRight)
         }
         if (
-            !piece.getPieceFromSquare(squareLeft) ||
-            piece.getPieceFromSquare(squareLeft).color !== piece.color
+            !piece.board.getPieceFromSquare(squareLeft) ||
+            piece.board.getPieceFromSquare(squareLeft).color !== piece.color
         ) {
             squares.push(squareLeft)
         }
         if (
-            !piece.getPieceFromSquare(squareRight) ||
-            piece.getPieceFromSquare(squareRight).color !== piece.color
+            !piece.board.getPieceFromSquare(squareRight) ||
+            piece.board.getPieceFromSquare(squareRight).color !== piece.color
         ) {
             squares.push(squareRight)
         }
         if (
-            !piece.getPieceFromSquare(squareTop) ||
-            piece.getPieceFromSquare(squareTop).color !== piece.color
+            !piece.board.getPieceFromSquare(squareTop) ||
+            piece.board.getPieceFromSquare(squareTop).color !== piece.color
         ) {
             squares.push(squareTop)
         }
         if (
-            !piece.getPieceFromSquare(squareBot) ||
-            piece.getPieceFromSquare(squareBot).color !== piece.color
+            !piece.board.getPieceFromSquare(squareBot) ||
+            piece.board.getPieceFromSquare(squareBot).color !== piece.color
         ) {
             squares.push(squareBot)
         }
@@ -129,9 +129,9 @@ export class Move extends Game
                 squareFwd = this.findRelativeSquarePosition(piece, 0, +(index))
 
             if (continueLeft) {
-                if (!piece.getPieceFromSquare(squareLeft)) {
+                if (!piece.board.getPieceFromSquare(squareLeft)) {
                     squares.push(squareLeft)
-                } else if (piece.getPieceFromSquare(squareLeft).color === piece.color) {
+                } else if (piece.board.getPieceFromSquare(squareLeft).color === piece.color) {
                     continueLeft = false
                 } else {
                     squares.push(squareLeft)
@@ -140,9 +140,9 @@ export class Move extends Game
             }
 
             if (continueRight) {
-                if (!piece.getPieceFromSquare(squareRight)) {
+                if (!piece.board.getPieceFromSquare(squareRight)) {
                     squares.push(squareRight)
-                } else if (piece.getPieceFromSquare(squareRight).color === piece.color) {
+                } else if (piece.board.getPieceFromSquare(squareRight).color === piece.color) {
                     continueRight = false
                 } else {
                     squares.push(squareRight)
@@ -151,9 +151,9 @@ export class Move extends Game
             }
 
             if (continueBack) {
-                if (!piece.getPieceFromSquare(squareBack)) {
+                if (!piece.board.getPieceFromSquare(squareBack)) {
                     squares.push(squareBack)
-                } else if (piece.getPieceFromSquare(squareBack).color === piece.color) {
+                } else if (piece.board.getPieceFromSquare(squareBack).color === piece.color) {
                     continueBack = false
                 } else {
                     squares.push(squareBack)
@@ -162,9 +162,9 @@ export class Move extends Game
             }
 
             if (continueFwd) {
-                if (!piece.getPieceFromSquare(squareFwd)) {
+                if (!piece.board.getPieceFromSquare(squareFwd)) {
                     squares.push(squareFwd)
-                } else if (piece.getPieceFromSquare(squareFwd).color === piece.color) {
+                } else if (piece.board.getPieceFromSquare(squareFwd).color === piece.color) {
                     continueFwd = false
                 } else {
                     squares.push(squareFwd)
@@ -190,9 +190,9 @@ export class Move extends Game
                 squareBotRight = this.findRelativeSquarePosition(piece, +(index), -(index))
 
             if (continueTopLeft) {
-                if (!piece.getPieceFromSquare(squareTopLeft)) {
+                if (!piece.board.getPieceFromSquare(squareTopLeft)) {
                     squares.push(squareTopLeft)
-                } else if (piece.getPieceFromSquare(squareTopLeft).color === piece.color) {
+                } else if (piece.board.getPieceFromSquare(squareTopLeft).color === piece.color) {
                     continueTopLeft = false
                 } else {
                     squares.push(squareTopLeft)
@@ -201,9 +201,9 @@ export class Move extends Game
             }
 
             if (continueTopRight) {
-                if (!piece.getPieceFromSquare(squareTopRight)) {
+                if (!piece.board.getPieceFromSquare(squareTopRight)) {
                     squares.push(squareTopRight)
-                } else if (piece.getPieceFromSquare(squareTopRight).color === piece.color) {
+                } else if (piece.board.getPieceFromSquare(squareTopRight).color === piece.color) {
                     continueTopRight = false
                 } else {
                     squares.push(squareTopRight)
@@ -212,9 +212,9 @@ export class Move extends Game
             }
 
             if (continueBotLeft) {
-                if (!piece.getPieceFromSquare(squareBotLeft)) {
+                if (!piece.board.getPieceFromSquare(squareBotLeft)) {
                     squares.push(squareBotLeft)
-                } else if (piece.getPieceFromSquare(squareBotLeft).color === piece.color) {
+                } else if (piece.board.getPieceFromSquare(squareBotLeft).color === piece.color) {
                     continueBotLeft = false
                 } else {
                     squares.push(squareBotLeft)
@@ -223,9 +223,9 @@ export class Move extends Game
             }
 
             if (continueBotRight) {
-                if (!piece.getPieceFromSquare(squareBotRight)) {
+                if (!piece.board.getPieceFromSquare(squareBotRight)) {
                     squares.push(squareBotRight)
-                } else if (piece.getPieceFromSquare(squareBotRight).color === piece.color) {
+                } else if (piece.board.getPieceFromSquare(squareBotRight).color === piece.color) {
                     continueBotRight = false
                 } else {
                     squares.push(squareBotRight)
@@ -248,14 +248,14 @@ export class Move extends Game
             square7 = this.findRelativeSquarePosition(piece, +1, +2),
             square8 = this.findRelativeSquarePosition(piece, +1, -2)
 
-        if (piece.getPieceFromSquare(square1)?.color !== piece.color) squares.push(square1)
-        if (piece.getPieceFromSquare(square2)?.color !== piece.color) squares.push(square2)
-        if (piece.getPieceFromSquare(square3)?.color !== piece.color) squares.push(square3)
-        if (piece.getPieceFromSquare(square4)?.color !== piece.color) squares.push(square4)
-        if (piece.getPieceFromSquare(square5)?.color !== piece.color) squares.push(square5)
-        if (piece.getPieceFromSquare(square6)?.color !== piece.color) squares.push(square6)
-        if (piece.getPieceFromSquare(square7)?.color !== piece.color) squares.push(square7)
-        if (piece.getPieceFromSquare(square8)?.color !== piece.color) squares.push(square8)
+        if (piece.board.getPieceFromSquare(square1)?.color !== piece.color) squares.push(square1)
+        if (piece.board.getPieceFromSquare(square2)?.color !== piece.color) squares.push(square2)
+        if (piece.board.getPieceFromSquare(square3)?.color !== piece.color) squares.push(square3)
+        if (piece.board.getPieceFromSquare(square4)?.color !== piece.color) squares.push(square4)
+        if (piece.board.getPieceFromSquare(square5)?.color !== piece.color) squares.push(square5)
+        if (piece.board.getPieceFromSquare(square6)?.color !== piece.color) squares.push(square6)
+        if (piece.board.getPieceFromSquare(square7)?.color !== piece.color) squares.push(square7)
+        if (piece.board.getPieceFromSquare(square8)?.color !== piece.color) squares.push(square8)
 
         return squares
     }
@@ -269,14 +269,19 @@ export class Move extends Game
                 squareTopRight = this.findRelativeSquarePosition(piece, -1, -1),
                 squareTopLeft = this.findRelativeSquarePosition(piece, -1, -1)
 
-            if (!piece.getPieceFromSquare(squareOne)) {
+            if (!piece.board.getPieceFromSquare(squareOne)) {
                 squares.push(squareOne)
 
-                if (Object.keys(piece.moves).length === 0) squares.push(squareTwo)
+                if (
+                    Object.keys(piece.moves).length === 0 &&
+                    !piece.board.getPieceFromSquare(squareTwo)
+                ) {
+                    squares.push(squareTwo)
+                }
             }
 
-            if (piece.getPieceFromSquare(squareTopRight)?.color === 'black') squares.push(squareTopRight)
-            if (piece.getPieceFromSquare(squareTopLeft)?.color === 'black') squares.push(squareTopLeft)
+            if (piece.board.getPieceFromSquare(squareTopRight)?.color === 'black') squares.push(squareTopRight)
+            if (piece.board.getPieceFromSquare(squareTopLeft)?.color === 'black') squares.push(squareTopLeft)
 
         } else {
             const squareOne = this.findRelativeSquarePosition(piece, 0, +1),
@@ -284,17 +289,19 @@ export class Move extends Game
                 squareTopRight = this.findRelativeSquarePosition(piece, +1, +1),
                 squareTopLeft = this.findRelativeSquarePosition(piece, -1, +1)
 
-            if (!piece.getPieceFromSquare(squareOne)) {
-
+            if (!piece.board.getPieceFromSquare(squareOne)) {
                 squares.push(squareOne)
 
-                if (Object.keys(piece.moves).length === 0) {
+                if (
+                    Object.keys(piece.moves).length === 0 &&
+                    !piece.board.getPieceFromSquare(squareTwo)
+                ) {
                     squares.push(squareTwo)
                 }
             }
 
-            if (piece.getPieceFromSquare(squareTopRight)?.color === 'white') squares.push(squareTopRight)
-            if (piece.getPieceFromSquare(squareTopLeft)?.color === 'white') squares.push(squareTopLeft)
+            if (piece.board.getPieceFromSquare(squareTopRight)?.color === 'white') squares.push(squareTopRight)
+            if (piece.board.getPieceFromSquare(squareTopLeft)?.color === 'white') squares.push(squareTopLeft)
         }
 
         return squares
@@ -307,7 +314,7 @@ export class Move extends Game
             position.row + yMove > 8 ||
             position.row + yMove <= 0 ||
             position.column + xMove > 8 ||
-            position.column + xMove <= 0
+                position.column + xMove <= 0
             ) {
             return 0
         }

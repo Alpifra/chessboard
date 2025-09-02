@@ -58,10 +58,6 @@ export class Piece extends Board
         this.moves.push(square)
     }
 
-    getPieceFromSquare(square) {
-        return this.board.pieces.find(piece => piece.square === square)
-    }
-
     render(canvas) {
         const element = this.toElement()
         this.setMoves(element, canvas)

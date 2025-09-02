@@ -64,17 +64,31 @@ export class Board
         return {row: squareRow, column: squareCol}
     }
 
-    showMoves(squares) {
+    getPieceFromSquare(square) {
+        return this.pieces.find(piece => piece.square === square)
+    }
+
+    showMoves(piece, squares) {
         //clear the board
         this.createSquares()
 
         squares.map( (square) => {
 
-            let positions = this.findSquarePosition(square)
-            let x = (positions.column - 1) * this.heightStep
-            let y = (positions.row - 1) * this.widthStep
+            const positions = this.findSquarePosition(square),
+                x = (positions.column - 1) * this.heightStep,
+                y = (positions.row - 1) * this.widthStep,
+                pieceOnSquare = this.getPieceFromSquare(square)
+            let color = '#44a72f85'
 
-            this.ctx.fillStyle = '#3d922bbf'
+            if (pieceOnSquare) {
+                if (pieceOnSquare.color === piece.color) {
+                    color = '#efb242d1'
+                } else {
+                    color = '#e94848c4'
+                }
+            }
+
+            this.ctx.fillStyle = color
             this.ctx.fillRect(x, y, this.widthStep, this.heightStep)
         })
     }

@@ -1,9 +1,10 @@
 export class Game
 {
 
+    static toMove = 'white'
+
     constructor(board) {
         this.board = board
-        this.toMove = 'white'
     }
 
     init() {
@@ -16,7 +17,7 @@ export class Game
 
                 if (!selectedPiece) return
 
-                if (selectedPiece.color !== this.toMove) {
+                if (selectedPiece.color !== Game.toMove) {
                     this.board.createSquares()
                     selectedPiece.active = false
 
@@ -26,10 +27,10 @@ export class Game
                 if (selectedPiece.availableMoves.includes(square)) {
                     selectedPiece.move(square)
 
-                    if (this.toMove === 'white') {
-                        this.toMove = 'black'
+                    if (Game.toMove === 'white') {
+                        Game.toMove = 'black'
                     } else {
-                        this.toMove = 'white'
+                        Game.toMove = 'white'
                     }
                 }
 
