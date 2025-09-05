@@ -9,9 +9,7 @@ export class Move extends Game
         this.canvas = canvas
     }
 
-    init(ev) {
-        let piece = this.piece
-        const squares = [piece.square]
+    init(piece) {
 
         if (piece.active || Game.toMove !== piece.color) {
             piece.board.showMoves(piece, [])
@@ -19,6 +17,7 @@ export class Move extends Game
             return
         }
 
+        let squares = []
         piece.active = !piece.active
 
         switch (piece.name) {

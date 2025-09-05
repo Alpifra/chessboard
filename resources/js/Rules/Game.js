@@ -18,7 +18,7 @@ export class Game
                 if (!selectedPiece) return
 
                 if (selectedPiece.color !== Game.toMove) {
-                    this.board.createSquares()
+                    this.board.hideMoves()
                     selectedPiece.active = false
 
                     return
@@ -35,7 +35,7 @@ export class Game
                 }
 
                 //clear the board
-                this.board.createSquares()
+                this.board.hideMoves()
                 selectedPiece.active = false
             }
         )

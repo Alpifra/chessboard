@@ -69,8 +69,6 @@ export class Board
     }
 
     showMoves(piece, squares) {
-        //clear the board
-        this.createSquares()
 
         squares.map( (square) => {
 
@@ -91,6 +89,10 @@ export class Board
             this.ctx.fillStyle = color
             this.ctx.fillRect(x, y, this.widthStep, this.heightStep)
         })
+    }
+
+    hideMoves() {
+        // TODO: hide moves
     }
 
 }
