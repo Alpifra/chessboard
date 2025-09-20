@@ -1,3 +1,5 @@
+import { Square } from "./Square"
+
 export class Board
 {
 
@@ -9,49 +11,30 @@ export class Board
         this.widthStep = chessBoard.width / xNumber
         this.ctx = chessBoard.getContext('2d')
         this.pieces = []
+        this.squares = []
     }
 
     createSquares() {
-        const darkColor = '#a10f2c'
-        const lightColor = '#a5beeb'
-
         let y = 0,
-            caseNumb = this.yNumber,
-            debugNumb = 1
+            squareNumber = 1,
+            square = null
 
         for (let i = 1; i <= this.yNumber; i++) {
             let x = 0
 
             for (let j = 1; j <= this.xNumber; j++) {
 
-                let cell = (String.fromCharCode(j + 64) + caseNumb).toLowerCase()
-
                 if ((i + j) % 2 === 0) {
-                    //color the case b-g
-                    this.ctx.fillStyle = lightColor
-                    this.ctx.fillRect(x, y, this.widthStep, this.heightStep)
-
-                    //attribute the case number
-                    this.ctx.font = '10px sans-serif'
-                    this.ctx.fillStyle = darkColor
-                    this.ctx.fillText(cell, (x + 5), (y + 12))
-                    this.ctx.fillStyle = 'yellow' // TODO: to remove after debug
-                    this.ctx.fillText(debugNumb, (x + 65), (y + 12)) // TODO: to remove after debug
+                    square = new Square(this.ctx, x, y, this.widthStep, this.heightStep, squareNumber, 'black')
                 } else {
-                    this.ctx.fillStyle = darkColor
-                    this.ctx.fillRect(x, y, this.widthStep, this.heightStep)
-
-                    this.ctx.font = '10px sans-serif'
-                    this.ctx.fillStyle = lightColor
-                    this.ctx.fillText(cell, (x + 5), (y + 12))
-                    this.ctx.fillStyle = 'yellow' // TODO: to remove after debug
-                    this.ctx.fillText(debugNumb, (x + 65), (y + 12)) // TODO: to remove after debug
+                    square = new Square(this.ctx, x, y, this.widthStep, this.heightStep, squareNumber, 'white')
                 }
 
+                square.render()
+                this.squares.push(square)
                 x = x + this.widthStep
-                debugNumb++
+                squareNumber++
             }
-            caseNumb--
             y = y + this.heightStep
         }
     }
@@ -91,8 +74,31 @@ export class Board
         })
     }
 
-    hideMoves() {
-        // TODO: hide moves
+    hideMoves(piece) {
+        // clear square canvas before drawing
+        for (const square of piece.availableMoves) {
+
+            let color = ''
+            const position = piece.calculatePosition(square),
+                x = position.x - (this.widthStep / 2),
+                y = position.y - (this.heightStep / 2),
+                rowOdd = Math.ceil(square / this.xNumber) % 2,
+                colOdd = square % 2
+
+            if (
+                rowOdd === 0 && colOdd === 0 ||
+                rowOdd !== 0 && colOdd === 0
+            ) {
+                color = 'white'
+            } else {
+                color = 'black'
+            }
+
+            const newSquare = new Square(this.ctx, x, y, this.widthStep, this.heightStep, square, color)
+
+            this.ctx.clearRect(x, y, this.widthStep, this.heightStep)
+            newSquare.render()
+        }
     }
 
 }

@@ -13,30 +13,56 @@ export class Game
                 let col = parseInt(ev.layerX / this.board.widthStep),
                     row = parseInt(ev.layerY / this.board.heightStep),
                     square = col + 1 + (this.board.xNumber * row),
-                    selectedPiece = this.board.pieces.find((piece) => piece.active)
+                    clickedPiece = this.board.getPieceFromSquare(square),
+                    selectedPiece = this.board.pieces.find(piece => piece.active)
 
-                if (!selectedPiece) return
+                // TODO : refacto these if and add move
+                // clicked on a piece
+                if (clickedPiece) {
 
-                if (selectedPiece.color !== Game.toMove) {
-                    this.board.hideMoves()
-                    selectedPiece.active = false
+                    if (
+                        clickedPiece.active ||
+                        clickedPiece.color !== Game.toMove
+                    ) {
+                        clickedPiece.active = false
+                        this.board.hideMoves(clickedPiece)
 
-                    return
-                }
+                        return
+                    }
 
-                if (selectedPiece.availableMoves.includes(square)) {
-                    selectedPiece.move(square)
+                    if (!selectedPiece) {
 
-                    if (Game.toMove === 'white') {
-                        Game.toMove = 'black'
+                        clickedPiece.active = true
+                        this.board.showMoves(clickedPiece, clickedPiece.availableMoves)
+                    } else if (
+                        clickedPiece.color === Game.toMove &&
+                        clickedPiece !== selectedPiece
+                    ) {
+
+                        clickedPiece.active = true
+                        this.board.showMoves(clickedPiece, clickedPiece.availableMoves)
+                        selectedPiece.active = false
+                        this.board.hideMoves(selectedPiece)
+                    }
+
+                // clicked on an empty square
+                } else {
+
+                    if (selectedPiece?.availableMoves.includes(square)) {
+                        selectedPiece.move(square)
+
+                        if (Game.toMove === 'white') {
+                            Game.toMove = 'black'
+                        } else {
+                            Game.toMove = 'white'
+                        }
                     } else {
-                        Game.toMove = 'white'
+                        //clear the board
+                        this.board.hideMoves(selectedPiece)
+                        selectedPiece.active = false
                     }
                 }
 
-                //clear the board
-                this.board.hideMoves()
-                selectedPiece.active = false
             }
         )
     }

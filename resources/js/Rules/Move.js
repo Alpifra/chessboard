@@ -11,14 +11,7 @@ export class Move extends Game
 
     init(piece) {
 
-        if (piece.active || Game.toMove !== piece.color) {
-            piece.board.showMoves(piece, [])
-            piece.active = false
-            return
-        }
-
         let squares = []
-        piece.active = !piece.active
 
         switch (piece.name) {
             case 'king':
@@ -44,7 +37,6 @@ export class Move extends Game
         }
 
         piece.availableMoves = squares
-        piece.board.showMoves(piece, squares)
     }
 
     kingMoves(piece) {
